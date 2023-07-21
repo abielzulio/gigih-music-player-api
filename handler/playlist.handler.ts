@@ -3,7 +3,7 @@ import { Sort } from "../domain/repositories/playlist.repository"
 import { PlaylistService } from "../service/playlist.service"
 import { Request, Response } from "express"
 
-type SongResponse<T = undefined> = {
+export type SongResponse<T = undefined> = {
   meta: {
     status: number
     message: string
@@ -40,11 +40,11 @@ export class PlaylistHandler {
   }
 
   public playSong = (
-    req: Request<{}, {}, Pick<ISong, "id">>,
+    req: Request<Pick<ISong, "id">, {}, {}>,
     res: Response<SongResponse>
   ) => {
     try {
-      const { id } = req.body
+      const { id } = req.params
       this.playlistService.playSong(id)
 
       res.status(200).json({
@@ -64,13 +64,12 @@ export class PlaylistHandler {
   }
 
   public getAllSongs = (
-    req: Request<{}, {}, {}, { sort: Sort }>,
+    req: Request<{}, {}, {}, Sort>,
     res: Response<SongResponse<{ data: ISong[] } | undefined>>
   ) => {
     try {
-      const {
-        sort: { by = "playing_count", order = "asc" },
-      } = req.query
+      const { by = "playing_count", order = "asc" } = req.query
+
       const songs = this.playlistService.getAllSongs({ by, order })
       res.status(200).json({
         meta: {
