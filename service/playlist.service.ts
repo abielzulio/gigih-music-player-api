@@ -1,4 +1,5 @@
 import { nanoid } from "nanoid"
+import { ISong, Song } from "../domain/entities/song.entity"
 import {
   PlaylistRepository,
   Sort,
@@ -20,7 +21,7 @@ export class PlaylistService {
       is_playing: false,
       playing_count: 0,
     })
-    console.log(newSong)
+
     this.playlistRepository.addSong(newSong)
   }
 

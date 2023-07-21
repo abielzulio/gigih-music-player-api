@@ -1,15 +1,17 @@
+import { ISong } from "../entities/song.entity"
+
 export type SortBy = "playing_count"
 export type SortOrder = "asc" | "desc"
 export type Sort = { by: SortBy; order: SortOrder }
 
 export class PlaylistRepository {
-  public playlist: Song[] = []
+  public playlist: ISong[] = []
 
-  public addSong(song: Song): void {
+  public addSong(song: ISong): void {
     this.playlist.push(song)
   }
 
-  public playSong(id: Song["id"]): void {
+  public playSong(id: ISong["id"]): void {
     this.playlist.forEach((song) => {
       if (song.id === id) {
         song.is_playing = true
@@ -20,7 +22,7 @@ export class PlaylistRepository {
     })
   }
 
-  public getAllSongs(sort: Sort): Song[] {
+  public getAllSongs(sort: Sort): ISong[] {
     if (sort.by === "playing_count") {
       return this.playlist.sort((a, b) => {
         if (sort.order === "asc") {
@@ -33,11 +35,11 @@ export class PlaylistRepository {
     return this.playlist
   }
 
-  public getPlayingSong(): Song | undefined {
+  public getPlayingSong(): ISong | undefined {
     return this.playlist.find((song) => song.is_playing)
   }
 
-  public getSongById(id: Song["id"]): Song | undefined {
+  public getSongById(id: ISong["id"]): ISong | undefined {
     return this.playlist.find((song) => song.id === id)
   }
 }

@@ -1,4 +1,4 @@
-interface ISong {
+export interface ISong {
   id: string
   title: string
   artist: string
@@ -7,7 +7,7 @@ interface ISong {
   playing_count: number
 }
 
-class Song implements ISong {
+export class Song {
   public id: ISong["id"]
   public title: ISong["title"]
   public artist: ISong["artist"]

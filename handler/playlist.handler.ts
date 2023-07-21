@@ -1,3 +1,4 @@
+import { ISong } from "../domain/entities/song.entity"
 import { Sort } from "../domain/repositories/playlist.repository"
 import { PlaylistService } from "../service/playlist.service"
 import { Request, Response } from "express"
